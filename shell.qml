@@ -6,14 +6,14 @@ import QtQuick
 import "widgets"
 import "widgets/bar"
 import "widgets/drawers" as Drawers
-import "widgets/app-launcher"
+import "widgets/launcher"
 import "widgets/notifications"
 import "config"
 import "services" as Services
 
 ShellRoot {
     Bar {}
-    AppLauncher {}
+    Launcher {}
     Notifications {}
     Drawers.Wrapper {}
 

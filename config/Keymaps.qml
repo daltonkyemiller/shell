@@ -8,7 +8,7 @@ Scope {
     Shortcut {
         name: "toggle-app-launcher"
         onPressed: {
-            Visibilities.setPopupState(Visibilities.Popup.AppLauncher, p => !p);
+            Visibilities.setPopupState(Visibilities.Popup.Launcher, p => !p);
         }
     }
 

@@ -13,7 +13,7 @@ import "../../components" as UI
 import "../../services" as Services
 
 LazyLoader {
-    activeAsync: Services.Visibilities.popups[Services.Visibilities.Popup.AppLauncher]
+    activeAsync: Services.Visibilities.popups[Services.Visibilities.Popup.Launcher]
 
     PanelWindow {
         id: root
@@ -35,12 +35,12 @@ LazyLoader {
         }
         exclusionMode: ExclusionMode.Ignore
 
-        visible: Services.Visibilities.popups[Services.Visibilities.Popup.AppLauncher]
+        visible: Services.Visibilities.popups[Services.Visibilities.Popup.Launcher]
 
         Connections {
             target: Services.Visibilities
             function onPopupStateChanged(name, value) {
-                if (name !== Services.Visibilities.Popup.AppLauncher) {
+                if (name !== Services.Visibilities.Popup.Launcher) {
                     return;
                 }
                 if (value) {
@@ -171,11 +171,11 @@ LazyLoader {
                         if (event.key === Qt.Key_Return) {
                             const app = root.apps[root.selectedIndex];
                             Services.Apps.launch(root.apps[root.selectedIndex]);
-                            Services.Visibilities.setPopupState(Services.Visibilities.Popup.AppLauncher, false);
+                            Services.Visibilities.setPopupState(Services.Visibilities.Popup.Launcher, false);
                         }
 
                         if (event.key === Qt.Key_Escape) {
-                            Services.Visibilities.setPopupState(Services.Visibilities.Popup.AppLauncher, false);
+                            Services.Visibilities.setPopupState(Services.Visibilities.Popup.Launcher, false);
                         }
                     }
                 }
