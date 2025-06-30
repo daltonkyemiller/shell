@@ -18,8 +18,12 @@ LazyLoader {
     PanelWindow {
         id: root
 
-        property var apps: Services.Apps.fuzzySearch(input.text).slice(0, 15)
+        property var items: Services.LauncherProviders.search(input.text).slice(0, 15)
         property int selectedIndex: 0
+
+        onItemsChanged: {
+            selectedIndex = 0;
+        }
 
         WlrLayershell.namespace: "dkm_blur_ignorealpha"
         WlrLayershell.layer: WlrLayer.Overlay
@@ -54,6 +58,15 @@ LazyLoader {
         ClippingRectangle {
             id: launcherContent
             anchors.centerIn: parent
+            opacity: 0
+
+            implicitHeight: !input.text ? 50 : 500
+            implicitWidth: 500
+            border.color: Config.Theme.colors.border
+            border.width: Config.Theme.style.borderWidth
+            color: Config.Theme.colors.bg
+            clip: true
+            radius: Config.Theme.style.radius.md
 
             ParallelAnimation {
                 id: enterAnimation
@@ -116,15 +129,7 @@ LazyLoader {
                     root.visible = false;
                 }
             }
-            opacity: 0
 
-            implicitHeight: !input.text ? 50 : 500
-            implicitWidth: 500
-            border.color: Config.Theme.colors.border
-            border.width: Config.Theme.style.borderWidth
-            color: Config.Theme.colors.bg
-            clip: true
-            radius: Config.Theme.style.radius.md
             Behavior on implicitHeight {
                 NumberAnimation {
                     duration: 300
@@ -133,56 +138,15 @@ LazyLoader {
                 }
             }
 
-            Item {
-                id: inputContainer
-                implicitHeight: 50
-                implicitWidth: 500
-                UI.StyledText {
-                    anchors.verticalCenter: parent.verticalCenter
-                    leftPadding: 10
-                    visible: !input.text
-                    text: "Search..."
-                    color: Config.Theme.colors.muted
-                }
-
-                UI.StyledTextInput {
-                    id: input
-                    anchors.verticalCenter: parent.verticalCenter
-                    x: 10
-                    width: parent.width
-                    activeFocusOnTab: true
-                    focus: true
-                    Keys.onPressed: event => {
-                        if (event.key === Qt.Key_Up) {
-                            if (root.selectedIndex === 0) {
-                                root.selectedIndex = root.apps.length - 1;
-                                return;
-                            }
-                            root.selectedIndex--;
-                        }
-                        if (event.key === Qt.Key_Down) {
-                            if (root.selectedIndex === root.apps.length - 1) {
-                                root.selectedIndex = 0;
-                                return;
-                            }
-                            root.selectedIndex++;
-                        }
-
-                        if (event.key === Qt.Key_Return) {
-                            const app = root.apps[root.selectedIndex];
-                            Services.Apps.launch(root.apps[root.selectedIndex]);
-                            Services.Visibilities.setPopupState(Services.Visibilities.Popup.Launcher, false);
-                        }
-
-                        if (event.key === Qt.Key_Escape) {
-                            Services.Visibilities.setPopupState(Services.Visibilities.Popup.Launcher, false);
-                        }
-                    }
-                }
+            LauncherInput {
+                id: input
+                items: root.items
+                selectedIndex: root.selectedIndex
+                onSelectedIndexChanged: root.selectedIndex = selectedIndex
             }
 
             Rectangle {
-                y: input.parent.height
+                y: input.height
                 height: Config.Theme.style.borderWidth
                 width: parent.width
                 color: Config.Theme.colors.border
@@ -190,12 +154,12 @@ LazyLoader {
 
             ListView {
                 id: app_list
-                y: input.parent.height
+                y: input.height
                 implicitWidth: parent.width
-                implicitHeight: parent.height - input.parent.height
+                implicitHeight: parent.height - input.height
                 clip: true
                 model: ScriptModel {
-                    values: root.apps
+                    values: root.items
                 }
 
                 // cacheBuffer: QsWindow.window?.screen.height ?? 0
@@ -264,7 +228,7 @@ LazyLoader {
                     policy: ScrollBar.AsNeeded
                 }
 
-                delegate: AppItem {
+                delegate: LauncherItem {
                     selected: root.selectedIndex === index
                 }
             }

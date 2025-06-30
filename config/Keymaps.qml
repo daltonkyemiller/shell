@@ -13,6 +13,13 @@ Scope {
     }
 
     Shortcut {
+        name: "toggle-clipboard-history"
+        onPressed: {
+            Visibilities.setPopupState(Visibilities.Popup.Launcher, p => !p);
+        }
+    }
+
+    Shortcut {
         name: "toggle-left-drawer"
         onPressed: {
             Visibilities.setDrawerState(Visibilities.Drawer.Left, p => !p);
