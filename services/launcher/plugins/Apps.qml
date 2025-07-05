@@ -1,14 +1,13 @@
 pragma Singleton
+import "../../../services" as Services
+import "../../launcher"
 
-import QtQuick
-import Quickshell
-import ".." as Services
-
-Singleton {
+Plugin {
     id: root
-
-    property var prefixes: [""]
-    property string name: "Applications"
+    name: "Applications"
+    description: "Search for applications"
+    icon: "applications-science"
+    prefixes: [""]
 
     function search(query) {
         return Services.Apps.fuzzySearch(query).map(app => ({

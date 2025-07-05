@@ -3,15 +3,18 @@ pragma Singleton
 import QtQuick
 import Quickshell.Io
 import Quickshell
+import "../../launcher"
 
-Singleton {
+Plugin {
     id: root
+    name: "Clipboard"
+    description: "Search for clipboard entries"
+    icon: "edit-copy"
+    prefixes: ["clip", "c"]
 
-    property var prefixes: ["clip", "c"]
-    property string name: "Clipboard"
-    property var results: []
 
     property string query: ""
+    property var results: []
     property var searched: results.filter(res => {
         if (!query) {
             return true;

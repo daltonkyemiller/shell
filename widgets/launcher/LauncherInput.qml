@@ -12,7 +12,7 @@ Item {
     required property var items
     required property int selectedIndex
 
-    property var provider: Services.Launcher.parsedQuery.provider
+    property var plugin: Services.Launcher.parsedQuery.plugin
     property string prefix: Services.Launcher.parsedQuery.prefix
     property string query: Services.Launcher.parsedQuery.query
 
@@ -38,7 +38,7 @@ Item {
         anchors.fill: parent
         anchors.margins: 10
         ClippingWrapperRectangle {
-            visible: !!root.provider
+            visible: !!root.plugin && root.prefix
             topMargin: 5
             bottomMargin: 5
             leftMargin: 5
@@ -48,10 +48,19 @@ Item {
             color: Config.Theme.colors.bg
             border.color: Config.Theme.colors.border
             border.width: Config.Theme.style.borderWidth
-            UI.StyledText {
-                anchors.centerIn: parent
-                text: root.provider ? root.provider.name : ""
-                color: Config.Theme.colors.fg
+            RowLayout {
+                UI.AppIcon {
+                    Layout.alignment: Qt.AlignVCenter
+                    implicitHeight: Config.Theme.style.iconSizes.xs
+                    implicitWidth: Config.Theme.style.iconSizes.xs
+                    // anchors.centerIn: parent
+                    icon.name: root.plugin ? root.plugin.icon : ""
+                }
+                UI.StyledText {
+                    Layout.alignment: Qt.AlignVCenter
+                    text: root.plugin ? root.plugin.name : ""
+                    color: Config.Theme.colors.fg
+                }
             }
         }
 

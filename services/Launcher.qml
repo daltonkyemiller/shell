@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import "launcher-providers" as LauncherProviders
+import "./launcher"
 
 Singleton {
     id: root
@@ -11,67 +12,51 @@ Singleton {
     property var results: search(query)
     property var parsedQuery: parseQuery(query)
 
-    property var allProviders: [LauncherProviders.AppsProvider, LauncherProviders.ClipboardProvider, LauncherProviders.TestProvider]
-
-    property var providers: {
-        let result = {};
-        for (const provider of allProviders) {
-            for (const prefix of provider.prefixes) {
-                result[prefix] = provider;
-            }
-        }
-        return result;
-    }
-
     function parseQuery(text) {
         const colonIndex = text.indexOf(':');
         if (colonIndex === -1) {
+            const plugin = PluginRegistry.getPluginByPrefix("");
             return {
                 prefix: "",
-                query: text
+                query: text,
+                plugin
             };
         }
 
         const prefix = text.substring(0, colonIndex);
         const query = text.substring(colonIndex + 1).trim();
 
-        if (providers.hasOwnProperty(prefix)) {
-            const provider = providers[prefix];
+        const plugin = PluginRegistry.getPluginByPrefix(prefix);
+
+        if (!plugin) {
             return {
-                prefix: prefix,
-                query: query,
-                provider
+                prefix: "",
+                query: text,
+                plugin: null
             };
         }
 
         return {
-            prefix: "",
-            query: text,
-            provider: null
+            prefix,
+            query,
+            plugin
         };
     }
 
     function search(text) {
         const parsed = parseQuery(text);
-        const provider = providers[parsed.prefix];
-
-        if (!provider) {
+        if (!parsed.plugin) {
             return [];
         }
 
-        return provider.search(parsed.query);
+        return parsed.plugin.search(parsed.query);
     }
 
     function execute(item) {
-        let provider;
-        if (item.type === "app") {
-            provider = LauncherProviders.AppsProvider;
-        } else if (item.type === "clipboard") {
-            provider = LauncherProviders.ClipboardProvider;
+        if (!root.parsedQuery.plugin) {
+            console.warn("No plugin found for query");
+            return;
         }
-
-        if (provider) {
-            provider.execute(item);
-        }
+        root.parsedQuery.plugin.execute(item);
     }
 }

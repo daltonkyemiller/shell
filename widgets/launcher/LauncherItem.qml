@@ -23,14 +23,14 @@ Item {
         implicitHeight: parent.height
         flat: true
         highlighted: root.selected
-        
+
         Row {
             id: row
             anchors.verticalCenter: parent.verticalCenter
             spacing: 8
             x: 20
             transformOrigin: Item.Left
-            
+
             Image {
                 width: 30
                 height: 30
@@ -44,13 +44,13 @@ Item {
                     }
                     return "";
                 }
-                
+
                 Rectangle {
                     anchors.fill: parent
                     color: Config.Theme.colors.muted
                     radius: 4
                     visible: parent.status === Image.Error || !root.modelData.icon
-                    
+
                     UI.StyledText {
                         anchors.centerIn: parent
                         text: root.modelData.type === "clipboard" ? "📋" : "📱"
@@ -58,16 +58,16 @@ Item {
                     }
                 }
             }
-            
+
             Column {
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 2
-                
+
                 UI.StyledText {
                     text: root.modelData.title
                     font.weight: Font.Medium
                 }
-                
+
                 UI.StyledText {
                     text: root.modelData.subtitle || ""
                     color: Config.Theme.colors.muted
