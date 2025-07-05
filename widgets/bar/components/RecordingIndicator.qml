@@ -52,6 +52,6 @@ Item {
         width: parent.width * 0.7
         height: parent.height * 0.7
         radius: width / 2
-        color: Qt.rgba(1, 0, 0, 1)
+        color: Config.Theme.colors.danger
     }
 }

@@ -15,6 +15,7 @@ Scope {
     Shortcut {
         name: "toggle-clipboard-history"
         onPressed: {
+            Launcher.query = "c:";
             Visibilities.setPopupState(Visibilities.Popup.Launcher, p => !p);
         }
     }

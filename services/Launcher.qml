@@ -7,6 +7,10 @@ import "launcher-providers" as LauncherProviders
 Singleton {
     id: root
 
+    property string query: ""
+    property var results: search(query)
+    property var parsedQuery: parseQuery(query)
+
     property var allProviders: [LauncherProviders.AppsProvider, LauncherProviders.ClipboardProvider, LauncherProviders.TestProvider]
 
     property var providers: {

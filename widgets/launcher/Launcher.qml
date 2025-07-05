@@ -18,7 +18,7 @@ LazyLoader {
     PanelWindow {
         id: root
 
-        property var items: Services.LauncherProviders.search(input.text).slice(0, 15)
+        property var items: Services.Launcher.results.slice(0, 50)
         property int selectedIndex: 0
 
         onItemsChanged: {
@@ -50,6 +50,7 @@ LazyLoader {
                 if (value) {
                     return;
                 }
+                Services.Launcher.query = "";
                 exitAnimation.start();
             }
         }
@@ -60,7 +61,7 @@ LazyLoader {
             anchors.centerIn: parent
             opacity: 0
 
-            implicitHeight: !input.text ? 50 : 500
+            implicitHeight: !Services.Launcher.query ? 50 : 500
             implicitWidth: 500
             border.color: Config.Theme.colors.border
             border.width: Config.Theme.style.borderWidth

@@ -13,6 +13,7 @@ Singleton {
         property color muted: Qt.rgba(107 / 255, 106 / 255, 97 / 255, 1)
         property color bg: Qt.rgba(24 / 255, 22 / 255, 22 / 255, 0.7)
         property color border: Qt.rgba(107 / 255, 106 / 255, 97 / 255, 1)
+        property color danger: Qt.rgba(212 / 255, 107 / 255, 98 / 255, 1)
     }
     component Style: QtObject {
         id: style
