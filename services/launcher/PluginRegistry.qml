@@ -27,5 +27,6 @@ Singleton {
     Component.onCompleted: {
         registerPlugin(LauncherPlugins.Clipboard);
         registerPlugin(LauncherPlugins.Apps);
+        registerPlugin(LauncherPlugins.EmojiPicker);
     }
 }

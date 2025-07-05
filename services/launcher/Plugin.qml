@@ -3,7 +3,7 @@ import QtQuick
 QtObject {
     required property string name
     required property string description
-    required property string icon
+    property string icon
     required property list<string> prefixes
 
     function search(query) {

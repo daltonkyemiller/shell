@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls
 import Quickshell
@@ -10,6 +12,17 @@ Item {
     required property int index
     required property bool selected
     property alias button: button
+
+    property string iconPath: {
+        if (root.modelData.icon) {
+            if (root.modelData.icon.startsWith("file://")) {
+                return root.modelData.icon;
+            }
+            const icon = Quickshell.iconPath(root.modelData.icon, true);
+            return icon;
+        }
+        return "";
+    }
 
     implicitWidth: parent?.width || 0
     implicitHeight: 50
@@ -32,31 +45,20 @@ Item {
             transformOrigin: Item.Left
 
             Image {
+                anchors.verticalCenter: parent.verticalCenter
+                visible: root.iconPath !== ""
                 width: 30
                 height: 30
+                source: root.iconPath
+            }
+
+            UI.StyledText {
                 anchors.verticalCenter: parent.verticalCenter
-                source: {
-                    if (root.modelData.icon) {
-                        if (root.modelData.icon.startsWith("file://")) {
-                            return root.modelData.icon;
-                        }
-                        return Quickshell.iconPath(root.modelData.icon);
-                    }
-                    return "";
-                }
+                visible: root.iconPath === ""
+                text: root.modelData.icon
+                font.weight: Font.Medium
+                font.pixelSize: 30
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: Config.Theme.colors.muted
-                    radius: 4
-                    visible: parent.status === Image.Error || !root.modelData.icon
-
-                    UI.StyledText {
-                        anchors.centerIn: parent
-                        text: root.modelData.type === "clipboard" ? "📋" : "📱"
-                        font.pixelSize: 16
-                    }
-                }
             }
 
             Column {

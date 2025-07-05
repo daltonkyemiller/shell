@@ -9,7 +9,7 @@ Plugin {
     id: root
     name: "Clipboard"
     description: "Search for clipboard entries"
-    icon: "edit-copy"
+    // icon: "edit-copy"
     prefixes: ["clip", "c"]
 
 

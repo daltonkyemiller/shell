@@ -50,6 +50,7 @@ Item {
             border.width: Config.Theme.style.borderWidth
             RowLayout {
                 UI.AppIcon {
+                    visible: root.plugin?.icon
                     Layout.alignment: Qt.AlignVCenter
                     implicitHeight: Config.Theme.style.iconSizes.xs
                     implicitWidth: Config.Theme.style.iconSizes.xs
@@ -78,6 +79,16 @@ Item {
                 text: Services.Launcher.query
                 onTextChanged: {
                     Services.Launcher.query = text;
+                }
+                onSelectionStartChanged: {
+                    if (!root.prefix) {
+                        return;
+                    }
+                    const prefixLength = root.prefix.length + 1;
+                    // Select everything but the prefix
+                    if (selectionStart === 0) {
+                        input.select(prefixLength, input.length);
+                    }
                 }
                 Keys.onPressed: event => {
                     if (event.key === Qt.Key_Up && root.items.length > 0) {
