@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import "widgets"
+import "widgets/windows"
 import "widgets/bar"
 import "widgets/drawers" as Drawers
 import "widgets/launcher"
@@ -16,6 +17,7 @@ ShellRoot {
     Launcher {}
     Notifications {}
     Drawers.Wrapper {}
+    // Windows {}
 
     // Helpers
     BlurWindow {}

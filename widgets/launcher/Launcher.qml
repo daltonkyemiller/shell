@@ -133,7 +133,7 @@ LazyLoader {
 
             Behavior on implicitHeight {
                 NumberAnimation {
-                    duration: 300
+                    duration: 250
                     easing.type: Easing.BezierSpline
                     easing.bezierCurve: Config.Animation.anim.curves.standard
                 }
