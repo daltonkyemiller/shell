@@ -1,5 +1,5 @@
 pragma Singleton
-import "../../../services" as Services
+import qs.services as Services
 import "../../launcher"
 
 Plugin {

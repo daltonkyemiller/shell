@@ -1,8 +1,8 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import "../../../config" as Config
-import "../../../components" as Components
+import qs.config as Config
+import qs.components as Components
 
 Item {
     id: root

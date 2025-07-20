@@ -1,6 +1,6 @@
 import Quickshell
 import QtQuick
-import "../../../config" as Config
+import qs.config as Config
 
 Rectangle {
     id: root

@@ -1,9 +1,9 @@
 pragma ComponentBehavior: Bound
 
 import "components" as BarComponents
-import "../../components" as UI
-import "../../config" as Config
-import "../../services" as Services
+import qs.components as UI
+import qs.config as Config
+import qs.services as Services
 
 import Quickshell
 import Quickshell.Widgets
@@ -20,6 +20,7 @@ PanelWindow {
     screen: modelData
     color: "transparent"
     WlrLayershell.namespace: "dkm_blur_ignorealpha"
+
 
     anchors {
         top: true

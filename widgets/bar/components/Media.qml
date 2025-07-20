@@ -4,9 +4,9 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Services.Mpris as MpriService
 import Quickshell.Widgets
-import "../../../config" as Config
-import "../../../components" as UI
-import "../../../services" as Services
+import qs.config as Config
+import qs.components as UI
+import qs.services as Services
 
 Row {
     id: root

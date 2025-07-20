@@ -6,9 +6,9 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Effects
-import "../../services" as Services
-import "../../components" as UI
-import "../../config/" as Config
+import qs.services as Services
+import qs.components as UI
+import qs.config as Config
 
 Item {
     id: root

@@ -8,9 +8,9 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell.Widgets
 
-import "../../config" as Config
-import "../../components" as UI
-import "../../services" as Services
+import qs.config as Config
+import qs.components as UI
+import qs.services as Services
 
 LazyLoader {
     activeAsync: Services.Visibilities.popups[Services.Visibilities.Popup.Launcher]

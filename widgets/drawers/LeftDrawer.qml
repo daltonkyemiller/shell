@@ -1,9 +1,9 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import "../../config" as Config
-import "../../services" as Services
-import "../../components" as UI
+import qs.config as Config
+import qs.services as Services
+import qs.components as UI
 
 Rectangle {
     id: root

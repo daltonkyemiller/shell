@@ -4,8 +4,8 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import QtQuick
-import "../../services" as Services
-import "../../config" as Config
+import qs.services as Services
+import qs.config as Config
 
 PanelWindow {
     id: root

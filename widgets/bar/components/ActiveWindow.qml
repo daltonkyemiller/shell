@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
-import "../../../components" as UI
-import "../../../services" as Services
+import qs.components as UI
+import qs.services as Services
 
 Item {
     id: root

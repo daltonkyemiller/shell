@@ -2,8 +2,8 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import QtQuick.Controls
-import "../../../config" as Config
-import "../../../services" as Services
+import qs.config as Config
+import qs.services as Services
 
 Item {
     id: container

@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import Quickshell.Io
-import "../components"
-import "../services"
+import qs.components
+import qs.services
 
 Scope {
     Shortcut {

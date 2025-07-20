@@ -1,8 +1,8 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.UPower
-import "../../../components" as UI
-import "../../../config" as Config
+import qs.components as UI
+import qs.config as Config
 
 Item {
     implicitWidth: childrenRect.width

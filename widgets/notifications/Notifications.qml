@@ -3,9 +3,9 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import "../../components" as UI
-import "../../config" as Config
-import "../../services" as Services
+import qs.components as UI
+import qs.config as Config
+import qs.services as Services
 
 PanelWindow {
     exclusionMode: ExclusionMode.Ignore
