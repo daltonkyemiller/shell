@@ -19,6 +19,9 @@ ShellRoot {
     Drawers.Wrapper {}
     // Windows {}
 
+    // OSD
+    VolumeOsd {}
+
     // Helpers
     BlurWindow {}
 
