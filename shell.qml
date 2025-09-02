@@ -21,6 +21,7 @@ ShellRoot {
 
     // OSD
     VolumeOsd {}
+    BrightnessOsd {}
 
     // Helpers
     BlurWindow {}
