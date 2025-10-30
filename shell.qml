@@ -17,7 +17,7 @@ ShellRoot {
     Launcher {}
     Notifications {}
     Drawers.Wrapper {}
-    // Windows {}
+    Windows {}
 
     // OSD
     VolumeOsd {}

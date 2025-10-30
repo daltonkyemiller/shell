@@ -12,7 +12,6 @@ Plugin {
     // icon: "edit-copy"
     prefixes: ["clip", "c"]
 
-
     property string query: ""
     property var results: []
     property var searched: results.filter(res => {
@@ -28,34 +27,48 @@ Plugin {
         return searched;
     }
 
+    function onVisibleChanged(visible) {
+        if (visible) {
+            clipProcess.running = true;
+        }
+    }
+
     function execute(item) {
         copyProcess.text = item.data;
         copyProcess.running = true;
     }
 
     property var clipProcess: Process {
-        running: true
+        running: false
 
         command: ["cliphist", "list"]
 
-        stdout: SplitParser {
-            splitMarker: ""
-            onRead: data => {
-                const lines = data.split('\n').filter(line => line.trim());
-                root.results = lines.map(line => {
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const lines = this.text.split("\n");
+
+                const newResults = [];
+
+                for (const line of lines) {
+                    if (!line || !line.trim()) {
+                        continue;
+                    }
+
                     const parts = line.split('\t');
                     const id = parts[0];
-                    const content = parts.slice(1).join('\t');
-                    const preview = content.length > 50 ? content.substring(0, 50) + "..." : content;
+                    const content = parts[1];
 
-                    return {
+                    newResults.push({
+                        id: parseInt(id),
                         type: "clipboard",
-                        title: preview,
-                        subtitle: `Clipboard entry ${id}`,
-                        icon: "edit-copy",
+                        title: content.substring(0, 30) + "...",
+                        subtitle: `Clipboard entry ${line}`,
+                        icon: "18px_clipboard-list",
                         data: content
-                    };
-                });
+                    });
+                }
+
+                root.results = newResults;
             }
         }
     }

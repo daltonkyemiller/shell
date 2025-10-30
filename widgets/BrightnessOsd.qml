@@ -65,10 +65,11 @@ Scope {
                         implicitWidth: Config.Theme.style.iconSizes.md
 
                         source: {
-                            const brightness = Services.Brightness.currentBrightness || 0
-                            
-                            if (brightness < 0.5) return "../icons/18px_brightness-decrease.svg"
-                            return "../icons/18px_brightness-increase.svg"
+                            const brightness = Services.Brightness.currentBrightness || 0;
+
+                            if (brightness < 0.5)
+                                return "../icons/18px_brightness-decrease.svg";
+                            return "../icons/18px_brightness-increase.svg";
                         }
                     }
 
@@ -83,6 +84,14 @@ Scope {
                                 left: parent.left
                                 top: parent.top
                                 bottom: parent.bottom
+                            }
+
+                            Behavior on implicitWidth {
+                                NumberAnimation {
+                                    duration: 200
+                                    easing.type: Easing.BezierSpline
+                                    easing.bezierCurve: Config.Animation.anim.curves.emphasized
+                                }
                             }
 
                             implicitWidth: parent.width * Math.min(1.0, Services.Brightness.currentBrightness || 0)
@@ -100,3 +109,4 @@ Scope {
         }
     }
 }
+

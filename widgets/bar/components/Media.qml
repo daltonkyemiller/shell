@@ -36,10 +36,21 @@ Row {
         text: Services.Media.title || "Nothing playing"
     }
 
-    UI.AppIcon {
+    CavaVisualizer {
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
+    MouseArea {
+        width: 18
+        height: 18
         visible: !!Services.Media.title
         anchors.verticalCenter: parent.verticalCenter
-        icon.name: Services.Media.mainPlayer?.isPlaying ? "media-playback-pause" : "media-playback-start"
         onClicked: Services.Media.mainPlayer.togglePlaying()
+        
+        Image {
+            anchors.fill: parent
+            source: Services.Media.mainPlayer?.isPlaying ? "../../../icons/18px_media-pause.svg" : "../../../icons/18px_media-play.svg"
+        }
     }
+
 }

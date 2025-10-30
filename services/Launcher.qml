@@ -43,6 +43,18 @@ Singleton {
         };
     }
 
+    function onVisibleChanged(visible) {
+        const parsed = parseQuery(query);
+        if (!parsed.plugin) {
+            return;
+        }
+
+        if (parsed.plugin.onVisibleChanged === undefined) {
+            return;
+        }
+        parsed.plugin.onVisibleChanged(visible);
+    }
+
     function search(text) {
         const parsed = parseQuery(text);
         if (!parsed.plugin) {

@@ -11,7 +11,8 @@ Singleton {
     property var indicators: ({})
 
     enum Popup {
-        Launcher = 0
+        Launcher = 0,
+        Windows = 1
     }
 
     enum Drawer {

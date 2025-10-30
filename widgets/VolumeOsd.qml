@@ -5,7 +5,6 @@ import QtQuick.Layouts
 import QtQuick.VectorImage
 import Quickshell
 import Quickshell.Services.Pipewire
-import Quickshell.Widgets
 import qs.config as Config
 import qs.components as UI
 
@@ -73,14 +72,17 @@ Scope {
                         implicitWidth: Config.Theme.style.iconSizes.md
 
                         source: {
-                            const audio = Pipewire.defaultAudioSink?.audio
-                            const volume = audio?.volume ?? 0
-                            const muted = audio?.muted ?? false
-                            
-                            if (muted || volume === 0) return "../icons/18px_volume-off.svg"
-                            if (volume < 0.33) return "../icons/18px_volume.svg"
-                            if (volume < 0.66) return "../icons/18px_volume-down.svg"
-                            return "../icons/18px_volume-up.svg"
+                            const audio = Pipewire.defaultAudioSink?.audio;
+                            const volume = audio?.volume ?? 0;
+                            const muted = audio?.muted ?? false;
+
+                            if (muted || volume === 0)
+                                return "../icons/18px_volume-off.svg";
+                            if (volume < 0.33)
+                                return "../icons/18px_volume.svg";
+                            if (volume < 0.66)
+                                return "../icons/18px_volume-down.svg";
+                            return "../icons/18px_volume-up.svg";
                         }
                     }
 
@@ -95,6 +97,14 @@ Scope {
                                 left: parent.left
                                 top: parent.top
                                 bottom: parent.bottom
+                            }
+
+                            Behavior on implicitWidth {
+                                NumberAnimation {
+                                    duration: 200
+                                    easing.type: Easing.BezierSpline
+                                    easing.bezierCurve: Config.Animation.anim.curves.emphasized
+                                }
                             }
 
                             implicitWidth: parent.width * Math.min(1.0, (Pipewire.defaultAudioSink?.audio.volume ?? 0))
@@ -120,4 +130,3 @@ Scope {
         }
     }
 }
-

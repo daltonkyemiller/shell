@@ -13,6 +13,13 @@ Scope {
     }
 
     Shortcut {
+        name: "toggle-windows"
+        onPressed: {
+            Visibilities.setPopupState(Visibilities.Popup.Windows, p => !p);
+        }
+    }
+
+    Shortcut {
         name: "toggle-clipboard-history"
         onPressed: {
             Launcher.query = "c:";

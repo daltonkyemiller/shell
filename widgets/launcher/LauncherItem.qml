@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import QtQuick.Controls
+import QtQuick.VectorImage
 import Quickshell
 import qs.components as UI
 import qs.config as Config
@@ -18,8 +19,13 @@ Item {
             if (root.modelData.icon.startsWith("file://")) {
                 return root.modelData.icon;
             }
-            const icon = Quickshell.iconPath(root.modelData.icon, true);
-            return icon;
+            const systemIcon = Quickshell.iconPath(root.modelData.icon, true);
+
+            if (!systemIcon) {
+                return `vector-image://${root.modelData.icon}`;
+            }
+
+            return systemIcon;
         }
         return "";
     }
@@ -46,10 +52,24 @@ Item {
 
             Image {
                 anchors.verticalCenter: parent.verticalCenter
-                visible: root.iconPath !== ""
+                visible: root.iconPath !== "" && !root.iconPath.startsWith("vector-image://")
                 width: 30
                 height: 30
                 source: root.iconPath
+            }
+
+            VectorImage {
+                anchors.verticalCenter: parent.verticalCenter
+                visible: root.iconPath.startsWith("vector-image://")
+                preferredRendererType: VectorImage.CurveRenderer
+                source: {
+                    const iconName = root.iconPath.match(/vector-image:\/\/([^.]+)(?:\.svg)?/)[1];
+                    console.log(iconName);
+                    return `../../icons/${iconName}.svg`;
+                }
+
+                width: 25
+                height: 25
             }
 
             UI.StyledText {
@@ -58,7 +78,6 @@ Item {
                 text: root.modelData.icon
                 font.weight: Font.Medium
                 font.pixelSize: 30
-
             }
 
             Column {

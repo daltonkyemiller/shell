@@ -5,20 +5,21 @@ import QtQuick.Controls
 import QtQuick.Window
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
 import Quickshell.Widgets
 
 import qs.config as Config
-import qs.components as UI
 import qs.services as Services
 
 LazyLoader {
     activeAsync: Services.Visibilities.popups[Services.Visibilities.Popup.Launcher]
+    onActiveChanged: {
+        Services.Launcher.onVisibleChanged(active);
+    }
 
     PanelWindow {
         id: root
 
-        property var items: Services.Launcher.results.slice(0, 50)
+        property var items: Services.Launcher.results
         property int selectedIndex: 0
 
         onItemsChanged: {
