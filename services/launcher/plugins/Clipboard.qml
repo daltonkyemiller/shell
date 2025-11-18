@@ -61,9 +61,9 @@ Plugin {
                     newResults.push({
                         id: parseInt(id),
                         type: "clipboard",
-                        title: content.substring(0, 30) + "...",
+                        title: content,
                         subtitle: `Clipboard entry ${line}`,
-                        icon: "18px_clipboard-list",
+                        icon: "vector-image://18px_clipboard-list",
                         data: content
                     });
                 }
