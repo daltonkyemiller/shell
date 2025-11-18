@@ -19,10 +19,13 @@ Item {
             if (root.modelData.icon.startsWith("file://")) {
                 return root.modelData.icon;
             }
+            if (root.modelData.icon.startsWith("vector-image://")) {
+                return root.modelData.icon;
+            }
             const systemIcon = Quickshell.iconPath(root.modelData.icon, true);
 
             if (!systemIcon) {
-                return `vector-image://${root.modelData.icon}`;
+                return "";
             }
 
             return systemIcon;
@@ -64,7 +67,6 @@ Item {
                 preferredRendererType: VectorImage.CurveRenderer
                 source: {
                     const iconName = root.iconPath.match(/vector-image:\/\/([^.]+)(?:\.svg)?/)[1];
-                    console.log(iconName);
                     return `../../icons/${iconName}.svg`;
                 }
 
@@ -86,7 +88,9 @@ Item {
 
                 UI.StyledText {
                     text: root.modelData.title
+                    width: root.width - 75
                     font.weight: Font.Medium
+                    elide: Text.ElideRight
                 }
 
                 UI.StyledText {
