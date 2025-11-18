@@ -28,12 +28,51 @@ Row {
         }
     }
 
-    UI.StyledText {
-        id: title
+    Item {
         width: Math.min(title.implicitWidth, 400)
+        height: title.implicitHeight
         anchors.verticalCenter: parent.verticalCenter
-        elide: Text.ElideRight
-        text: Services.Media.title || "Nothing playing"
+        clip: true
+
+        UI.StyledText {
+            id: title
+            anchors.verticalCenter: parent.verticalCenter
+            elide: Text.ElideNone
+            text: Services.Media.title || "Nothing playing"
+
+            property bool shouldScroll: implicitWidth > 400
+            
+            SequentialAnimation {
+                running: title.shouldScroll
+                loops: Animation.Infinite
+                
+                // PauseAnimation { duration: 200 }
+                NumberAnimation {
+                    target: title
+                    property: "x"
+                    from: 0
+                    to: -title.implicitWidth - 50
+                    duration: Math.max(3000, (title.implicitWidth + 50) * 15)
+                    easing.type: Config.Animation.easing.standard
+                }
+                PropertyAction {
+                    target: title
+                    property: "x"
+                    value: 0
+                }
+            }
+            
+            onTextChanged: x = 0
+        }
+
+        UI.StyledText {
+            id: titleDupe
+            anchors.verticalCenter: parent.verticalCenter
+            elide: Text.ElideNone
+            text: title.text
+            x: title.x + title.implicitWidth + 50
+            visible: title.shouldScroll
+        }
     }
 
     CavaVisualizer {
