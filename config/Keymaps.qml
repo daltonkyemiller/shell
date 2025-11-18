@@ -13,9 +13,24 @@ Scope {
     }
 
     Shortcut {
-        name: "toggle-windows"
+        name: "windows-forward"
         onPressed: {
-            Visibilities.setPopupState(Visibilities.Popup.Windows, p => !p);
+            if (!Visibilities.popups[Visibilities.Popup.Windows]) {
+                Windows.open()
+            } else {
+                Windows.move(1)
+            }
+        }
+    }
+
+    Shortcut {
+        name: "windows-backward"
+        onPressed: {
+            if (!Visibilities.popups[Visibilities.Popup.Windows]) {
+                Windows.open()
+            } else {
+                Windows.move(-1)
+            }
         }
     }
 
