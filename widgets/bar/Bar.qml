@@ -126,6 +126,19 @@ PanelWindow {
                 color: Config.Theme.colors.border
             }
 
+            BarComponents.SystemTray {
+                id: systemTray
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Rectangle {
+                visible: systemTray.implicitWidth > 0
+                width: 1
+                height: parent.height - parent.padding * 2
+                anchors.verticalCenter: parent.verticalCenter
+                color: Config.Theme.colors.border
+            }
+
             BarComponents.Clock {
                 id: clock
 
